@@ -30,7 +30,19 @@ func (exp Expansion) ToText(wordnet *wnr.Handle) string {
 		log.Fatal(err)
 	}
 
-	myWord := words[rand.Intn(len(words))]
-	similar := myWord.Related(wnr.SimilarTo)
-	return similar[rand.Intn(len(similar))].Word()
+	// for _, w := range words {
+	// 	w.Dump()
+	// }
+
+	myWord := words[1]
+	var similar []string
+	for _, r := range myWord.Related(wnr.SimilarTo) {
+		//r.Dump()
+		similar = append(similar, r.Word())
+		for _, s := range r.Synonyms() {
+			similar = append(similar, s)
+		}
+	}
+	r := rand.Intn(len(similar))
+	return similar[r]
 }

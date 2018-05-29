@@ -10,9 +10,12 @@ import (
 	"log"
 
 	"math/rand"
+
+	"time"
 )
 
 func main() {
+	seedRand()
 	wordnet := loadWordnet()
 	templates := Templates()
 	template := templates[rand.Intn(len(templates))]
@@ -21,6 +24,10 @@ func main() {
 		fmt.Print(segment.ToText(wordnet))
 	}
 	fmt.Println()
+}
+
+func seedRand() {
+	rand.Seed(time.Now().UnixNano())
 }
 
 func loadWordnet() *wnr.Handle {
